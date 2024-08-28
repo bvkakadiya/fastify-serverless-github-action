@@ -48,7 +48,7 @@ EOL
 
 # Step 4: Create a GitHub Actions workflow file for testing and linting
 cat <<'EOL' > .github/workflows/test-and-lint.yml
-name: Test and Lint
+name: CI Pipeline
 
 on:
   push:
@@ -56,6 +56,9 @@ on:
   pull_request:
     branches: [ "main" ]
   workflow_dispatch:
+
+permissions:
+  pull-requests: read # allows SonarCloud to decorate PRs with analysis results
 
 jobs:
   test-and-lint:
@@ -66,12 +69,12 @@ jobs:
 
     steps:
       - name: Checkout code
-        uses: actions/checkout@v2
+        uses: actions/checkout@v4
 
       - name: Set up Node.js
-        uses: actions/setup-node@v2
+        uses: actions/setup-node@v4
         with:
-          node-version: \${{ matrix.node-version }}
+          node-version: ${{ matrix.node-version }}
 
       - name: Install dependencies
         run: yarn install
@@ -81,6 +84,17 @@ jobs:
 
       - name: Run tests
         run: yarn test
+      - name: Analyze with SonarCloud
+        uses: SonarSource/sonarcloud-github-action@v2.2.0
+        env:
+            SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}   # Generate a token on Sonarcloud.io, add it to the secrets of this repo with the name SONAR_TOKEN (Settings > Secrets > Actions > add new repository secret)
+        with:
+            args: >
+            -Dsonar.projectKey=bvkakadiya_fastify-serverless-github-action
+            -Dsonar.organization=bvkakadiya
+            -Dsonar.sources=.
+            -Dsonar.tests=.
+            -Dsonar.verbose=true
 EOL
 
 echo "Fastify project setup complete with GitHub Actions for SonarQube scan, testing, and linting."

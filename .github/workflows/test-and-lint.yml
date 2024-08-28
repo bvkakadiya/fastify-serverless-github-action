@@ -1,4 +1,4 @@
-name: Test and Lint
+name: CI Pipeline
 
 on:
   push:
@@ -7,12 +7,15 @@ on:
     branches: [ "main" ]
   workflow_dispatch:
 
+permissions:
+  pull-requests: read # allows SonarCloud to decorate PRs with analysis results
+
 jobs:
   test-and-lint:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        node-version: [20,22]
+        node-version: [20.x, 22.x]
 
     steps:
       - name: Checkout code
@@ -31,3 +34,14 @@ jobs:
 
       - name: Run tests
         run: yarn test
+      - name: Analyze with SonarCloud
+        uses: SonarSource/sonarcloud-github-action@v2.2.0
+        env:
+            SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}   # Generate a token on Sonarcloud.io, add it to the secrets of this repo with the name SONAR_TOKEN (Settings > Secrets > Actions > add new repository secret)
+        with:
+            args: >
+            -Dsonar.projectKey=bvkakadiya_fastify-serverless-github-action
+            -Dsonar.organization=bvkakadiya
+            -Dsonar.sources=.
+            -Dsonar.tests=.
+            -Dsonar.verbose=true
