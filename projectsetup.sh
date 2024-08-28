@@ -45,4 +45,42 @@ jobs:
           projectBaseDir: .
 EOL
 
-echo "Fastify project setup complete with GitHub Actions for SonarQube scan."
+
+# Step 4: Create a GitHub Actions workflow file for testing and linting
+cat <<'EOL' > .github/workflows/test-and-lint.yml
+name: Test and Lint
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+  workflow_dispatch:
+
+jobs:
+  test-and-lint:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        node-version: [18, 20]
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v2
+        with:
+          node-version: \${{ matrix.node-version }}
+
+      - name: Install dependencies
+        run: yarn install
+
+      - name: Run lint
+        run: yarn lint
+
+      - name: Run tests
+        run: yarn test
+EOL
+
+echo "Fastify project setup complete with GitHub Actions for SonarQube scan, testing, and linting."
