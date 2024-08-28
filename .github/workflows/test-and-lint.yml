@@ -40,8 +40,8 @@ jobs:
             SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}   # Generate a token on Sonarcloud.io, add it to the secrets of this repo with the name SONAR_TOKEN (Settings > Secrets > Actions > add new repository secret)
         with:
             args: >
-            -Dsonar.projectKey=bvkakadiya_fastify-serverless-github-action
-            -Dsonar.organization=bvkakadiya
-            -Dsonar.sources=.
-            -Dsonar.tests=.
-            -Dsonar.verbose=true
+              -Dsonar.projectKey=bvkakadiya_fastify-serverless-github-action
+              -Dsonar.organization=bvkakadiya
+              -Dsonar.sources=.
+              -Dsonar.tests=.
+              -Dsonar.verbose=true

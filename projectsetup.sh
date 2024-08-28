@@ -47,7 +47,7 @@ EOL
 
 
 # Step 4: Create a GitHub Actions workflow file for testing and linting
-cat <<'EOL' > .github/workflows/test-and-lint.yml
+cat <<'EOL' > .github/workflows/ci-pipeline.yml
 name: CI Pipeline
 
 on:
@@ -87,14 +87,22 @@ jobs:
       - name: Analyze with SonarCloud
         uses: SonarSource/sonarcloud-github-action@v2.2.0
         env:
-            SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}   # Generate a token on Sonarcloud.io, add it to the secrets of this repo with the name SONAR_TOKEN (Settings > Secrets > Actions > add new repository secret)
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}   # Generate a token on Sonarcloud.io, add it to the secrets of this repo with the name SONAR_TOKEN (Settings > Secrets > Actions > add new repository secret)
         with:
-            args: >
+          # Additional arguments for the SonarScanner CLI
+          args:
+            # Unique keys of your project and organization. You can find them in SonarCloud > Information (bottom-left menu)
+            # mandatory
             -Dsonar.projectKey=bvkakadiya_fastify-serverless-github-action
             -Dsonar.organization=bvkakadiya
-            -Dsonar.sources=.
-            -Dsonar.tests=.
-            -Dsonar.verbose=true
+            # Comma-separated paths to directories containing main source files.
+            #-Dsonar.sources= # optional, default is project base directory
+            # Comma-separated paths to directories containing test source files.
+            #-Dsonar.tests= # optional. For more info about Code Coverage, please refer to https://docs.sonarcloud.io/enriching/test-coverage/overview/
+            # Adds more detail to both client and server-side analysis logs, activating DEBUG mode for the scanner, and adding client-side environment variables and system properties to the server-side log of analysis report processing.
+            #-Dsonar.verbose= # optional, default is false
+          # When you need the analysis to take place in a directory other than the one from which it was launched, default is .
+          projectBaseDir: .
 EOL
 
 echo "Fastify project setup complete with GitHub Actions for SonarQube scan, testing, and linting."
