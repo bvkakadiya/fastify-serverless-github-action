@@ -28,13 +28,17 @@ jobs:
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           aws-region: us-east-1 # Modify this to your desired AWS region
 
+      - name: Install zip
+        run: sudo apt-get update && sudo apt-get install -y zip
+
       - name: Package Lambda function
         run: |
           mkdir -p package
-          cp -r * package/
+          rsync -av --progress . package --exclude package
           cd package
           zip -r ../function.zip .
           cd ..
+
 
       - name: Deploy to AWS Lambda
         run: |
