@@ -19,7 +19,6 @@ app.register(appService)
 
 app.register(AutoLoad, {
   dir: path.join(__dirname, 'routes'),
-  options: Object.assign({ prefix: 'api' }, opts),
 })
 
 // delay is the number of milliseconds for the graceful close to finish
