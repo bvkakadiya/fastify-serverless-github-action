@@ -1,16 +1,14 @@
 #!/bin/bash
 
 # Step 1: Initialize a Fastify project
-npx fastify-cli generate  . --integrate --esm --standardlint 
+npx fastify-cli generate e . --integrate   --esm --standardlint 
 
 # Step 3: Create .github/workflows directory
 mkdir -p .github/workflows
 
 # Step 4: Create a GitHub Actions workflow file for SonarQube scan
 cat <<EOL > .github/workflows/sonar.yml
-
 name: SonarCloud analysis
-
 on:
   push:
     branches: [ "main" ]
@@ -27,12 +25,9 @@ jobs:
 
     steps:
       - name: Analyze with SonarCloud
-
-        # You can pin the exact commit or the version.
-        # uses: SonarSource/sonarcloud-github-action@v2.2.0
-        uses: SonarSource/sonarcloud-github-action@4006f663ecaf1f8093e8e4abb9227f6041f52216
+        uses: SonarSource/sonarcloud-github-action@v3
         env:
-          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}   # Generate a token on Sonarcloud.io, add it to the secrets of this repo with the name SONAR_TOKEN (Settings > Secrets > Actions > add new repository secret)
+          SONAR_TOKEN: \${{ secrets.SONAR_TOKEN }}   # Generate a token on Sonarcloud.io, add it to the secrets of this repo with the name SONAR_TOKEN (Settings > Secrets > Actions > add new repository secret)
         with:
           # Additional arguments for the SonarScanner CLI
           args:
