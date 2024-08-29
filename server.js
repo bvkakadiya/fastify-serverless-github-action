@@ -1,6 +1,6 @@
 import Fastify from 'fastify'
 import closeWithGrace from 'close-with-grace'
-import appService from './app.js'
+// import appService from './app.js'
 import path from 'path'
 import AutoLoad from '@fastify/autoload'
 import { fileURLToPath } from 'url'
@@ -15,7 +15,7 @@ const app = Fastify({
 })
 
 // Register your application as a normal plugin.
-app.register(appService)
+// app.register(appService)
 
 app.register(AutoLoad, {
   dir: path.join(__dirname, 'routes'),
