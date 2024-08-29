@@ -1,6 +1,11 @@
 import fastify from 'fastify'
 import AutoLoad from '@fastify/autoload'
 import closeWithGrace from 'close-with-grace'
+import path from 'path'
+import { fileURLToPath } from 'url'
+
+const __filename = fileURLToPath(import.meta.url)
+const __dirname = path.dirname(__filename)
 
 function init() {
   const app = fastify({ logger: true, pluginTimeout: 10000 })
