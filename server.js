@@ -33,11 +33,11 @@ closeWithGrace(
 )
 
 // Start listening.
-app.listen({ port: process.env.PORT || 3000 }, (err) => {
-  if (err) {
-    app.log.error(err)
-    process.exit(1)
-  }
-})
+// app.listen({ port: process.env.PORT || 3000 }, (err) => {
+//   if (err) {
+//     app.log.error(err)
+//     process.exit(1)
+//   }
+// })
 
 export default app
