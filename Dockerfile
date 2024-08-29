@@ -8,6 +8,7 @@ WORKDIR /var/task
 COPY package.json yarn.lock ./
 
 # Install dependencies
+RUN npm install -g yarn
 RUN yarn install --production
 
 # Copy the rest of the application code
