@@ -42,6 +42,7 @@ jobs:
           IMAGE_TAG: latest
         run: |
           echo ${{ steps.login-ecr.outputs.registry }}
+          aws ecr-public get-login-password --region us-east-1 | docker login --username AWS --password-stdin public.ecr.aws/r0e9z1y0
           docker build -t $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG .
           docker push $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
 
