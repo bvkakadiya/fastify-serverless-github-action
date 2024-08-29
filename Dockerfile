@@ -1,20 +1,17 @@
-# Use the latest Node.js runtime as a parent image
-FROM node:latest
+# Use the official AWS Lambda Node.js base image
+FROM public.ecr.aws/lambda/nodejs:22
 
 # Set the working directory
-WORKDIR /usr/src/app
+WORKDIR /var/task
 
-# Copy package.json and package-lock.json
-COPY package*.json ./
+# Copy package.json and yarn.lock (or package-lock.json)
+COPY package.json yarn.lock ./
 
 # Install dependencies
-RUN yarn install
+RUN yarn install --production
 
 # Copy the rest of the application code
 COPY . .
 
-# Expose the port the app runs on
-EXPOSE 3000
-
-# Define the command to run the app
+# Command to run the Lambda handler
 CMD ["lambda.handler"]
