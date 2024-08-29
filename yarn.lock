@@ -53,6 +53,11 @@
   resolved "https://registry.yarnpkg.com/@fastify/autoload/-/autoload-5.10.0.tgz#e839146ec59c2e9f79ee88d006fb5d1b1d922881"
   integrity sha512-4A6s86qMbjcpWHmJL7cErtjIxOPuW8c67DLiuO8HoJQxuK97vaptoUnK5BTOwRg1ntYqfc3tjwerTTo5NQ3fEQ==
 
+"@fastify/aws-lambda@^4.1.0":
+  version "4.1.0"
+  resolved "https://registry.yarnpkg.com/@fastify/aws-lambda/-/aws-lambda-4.1.0.tgz#67dc617bbd596e078bee6e83a4ec9d31dee7686b"
+  integrity sha512-293HSdtr4muZZi4UxjrDgddxlLRDbNxT5x/eOX78obMA1Du3tfpuP7WuyfnA4GXaeckj/soJ2jiuD2sM4VIW9Q==
+
 "@fastify/deepmerge@^2.0.0":
   version "2.0.0"
   resolved "https://registry.yarnpkg.com/@fastify/deepmerge/-/deepmerge-2.0.0.tgz#794e98a4eefd6e1edde852e924e25f47b0fed7d8"
