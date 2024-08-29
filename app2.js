@@ -23,7 +23,7 @@ function init() {
       await app.close()
     }
   )
-  app.get('/', (request, reply) => reply.send({ hello: 'world' }))
+  app.get('/helloBK', (request, reply) => reply.send({ hello: 'Hello BK world' }))
   return app
 }
 
