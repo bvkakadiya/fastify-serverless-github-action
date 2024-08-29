@@ -41,6 +41,15 @@ jobs:
           ECR_REPOSITORY: bvkakadiya/fastify-server  # Change this to your ECR repository name
           IMAGE_TAG: latest
         run: |
+          # Pull the current latest image
+          docker pull $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG || true
+          
+          # Tag the current latest image as old
+          docker tag $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG $ECR_REGISTRY/$ECR_REPOSITORY:old || true
+          
+          # Push the old tag
+          docker push $ECR_REGISTRY/$ECR_REPOSITORY:old || true
+
           docker build -t $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG .
           docker push $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
 
