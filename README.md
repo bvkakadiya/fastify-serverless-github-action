@@ -6,6 +6,7 @@ This project was bootstrapped with Fastify-CLI.
 
 In the project directory, you can run:
 
+yte
 ### `npm run dev`
 
 To start the app in dev mode.\
